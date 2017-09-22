@@ -1,0 +1,10 @@
+<div class="w3-bar w3-dark-grey">
+	<div class="container">
+		<a href="{{url_for('index')}}" class="w3-hover-none w3-button w3-bar-item w3-xxlarge">Catalog App</a>
+		{% if 'username' not in session %}
+			<a href="{{url_for('login')}}" class="w3-right"><button class="btn btn-danger navbar-btn btn-lg">Login</button></a>
+		{% else %}
+			<a href="{{url_for('logout')}}" class="w3-right"><button class="btn btn-danger navbar-btn btn-lg">Logout</button></a>
+		{% endif %}
+	</div>
+</div>
