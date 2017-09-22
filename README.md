@@ -15,7 +15,7 @@ This documentation assumes that
 - you know how to run python code with command line on Terminal, Git-Bash, etc
 - you have setup the google OAuth service
 
-##How to run the code
+## How to run the code
 1. Download or clone all the files into your vagrant folder
 2. open your favorite command line prompt and run the VM
 3. run database_setup.py to setup the database
@@ -23,5 +23,5 @@ This documentation assumes that
 5. run application.py to start the server
 3. open your browser and visit localhost:5000
 
-##License
+## License
 I got a lot of support and help from Udacity creating this project.
