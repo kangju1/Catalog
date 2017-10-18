@@ -130,7 +130,7 @@ def gdisconnect():
     gdisconnect: disconnects the user from login session
     return: success message
     """
-    credentials = login_session.get('user_id')
+    credentials = login_session.get('access_token')
     if credentials is None:
         print 'Access Token is None'
         response = make_response(
@@ -139,7 +139,7 @@ def gdisconnect():
         return response
 
     url = ('https://accounts.google.com/o/oauth2/revoke?token=%s'
-           % credentials.access_token)
+           % credentials)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
 
