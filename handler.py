@@ -26,6 +26,12 @@ CLIENT_ID = json.loads(
 
 
 def gconnect():
+    """
+    gconnect: log in function that uses google id
+    return:
+        On success: html along with the user information
+        On fail: depends on the case
+    """
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter'), 401)
         response.headers['Content-type'] = 'application/json'
@@ -99,7 +105,6 @@ def gconnect():
     user_id = getUserID(login_session['email'])
 
     if not user_id:
-
         user_id = createUser(login_session)
 
     login_session['user_id'] = user_id
@@ -121,7 +126,11 @@ def gconnect():
 
 
 def gdisconnect():
-    credentials = login_session.get('credentials')
+    """
+    gdisconnect: disconnects the user from login session
+    return: success message
+    """
+    credentials = login_session.get('user_id')
     if credentials is None:
         print 'Access Token is None'
         response = make_response(
@@ -143,7 +152,6 @@ def gdisconnect():
         del login_session['user_id']
         del login_session['provider']
         del login_session['state']
-        del login_session['access_token']
         flash("You have successfully been logged out.")
         return redirect(url_for('index'))
     else:

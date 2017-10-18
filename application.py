@@ -169,9 +169,9 @@ def deleteItem(cat_name, item_title):
         return render_template('deleteitem.html', category=category, item=item)
 
 
-@app.route('/catalog/json')
-def showJson():
-    return jsonify(Category=makeCatJson())
+@app.route('/catalog/json/<int:category_id>/')
+def showJson(category_id):
+    return jsonify(Category=makeCatJson(category_id))
 
 
 @app.route('/login')
@@ -194,17 +194,19 @@ def logout():
     return result
 
 
-def makeCatJson():
-    categories = session.query(Category).all()
+def makeCatJson(category_id):
+    """
+    makeCatJson: Get arbitrary items of the category sorted by the id
+    """
+    category = session.query(Category).filter_by(id=category_id).one()
     cat_list = []
-    for category in categories:
-        items = session.query(Item).filter_by(cat_id=category.id).all()
-        obj = {
-            "name": category.name,
-            "id": category.id,
-            "items": [i.serialize for i in items]
-        }
-        cat_list.append(obj)
+    items = session.query(Item).filter_by(cat_id=category.id).all()
+    obj = {
+        "name": category.name,
+        "id": category.id,
+        "items": [i.serialize for i in items]
+    }
+    cat_list.append(obj)
     return cat_list
 
 
